@@ -3,6 +3,7 @@ import tensorflow as tf
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
+from plot_decision_regions import *
 
 np.random.seed(0)
 tf.set_random_seed(1234)
@@ -72,3 +73,17 @@ accuracy_rate = accuracy.eval(session=sess, feed_dict={
     t: Y_test
 })
 print('accuracy: ', accuracy_rate)
+
+
+#------------------------------------------------
+# 予測マップをプロット
+#
+
+# 予測関数を定義してプロット側に渡す
+def get_prob(X):
+    return y.eval(session=sess, feed_dict={
+        x: X
+    })
+
+plot_decision_regions(X_test, Y_test.flatten(), get_prob)
+plt.show()

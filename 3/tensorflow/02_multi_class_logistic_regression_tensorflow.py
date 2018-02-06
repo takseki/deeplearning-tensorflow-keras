@@ -1,6 +1,7 @@
 import numpy as np
 import tensorflow as tf
 from sklearn.utils import shuffle
+from plot_decision_regions import *
 
 np.random.seed(0)
 tf.set_random_seed(0)
@@ -80,3 +81,18 @@ print(classified)
 print()
 print('output probability:')
 print(prob)
+
+#------------------------------------------------
+# 予測マップをプロット
+#
+
+# 予測関数を定義してプロット側に渡す
+def get_prob(X):
+    return y.eval(session=sess, feed_dict={
+        x: X
+    })
+
+# 1-of-K を多値表現 {0,...,K-1} に直す
+T_ = np.argmax(Y_, axis=1)
+plot_decision_regions(X_, T_, get_prob)
+plt.show()

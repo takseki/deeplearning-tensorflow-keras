@@ -1,5 +1,6 @@
 import numpy as np
 import tensorflow as tf
+from plot_decision_regions import *
 
 tf.set_random_seed(0)
 
@@ -61,3 +62,17 @@ print(classified)
 print()
 print('output probability:')
 print(prob)
+
+
+#------------------------------------------------
+# 予測マップをプロット
+#
+
+# 予測関数を定義してプロット側に渡す
+def get_prob(X):
+    return y.eval(session=sess, feed_dict={
+        x: X
+    })
+
+plot_decision_regions(X, Y.flatten(), get_prob)
+plt.show()
