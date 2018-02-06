@@ -4,10 +4,16 @@ from matplotlib.colors import ListedColormap
 
 ##
 # X : 入力    (n_samples, n_features)
-# t : 目標値  (n_samples) 
+# T : 目標値  (n_samples, n_features)
 # prob : 予測器の確率出力を返す関数 Y = prob(X)
 #
-def plot_decision_regions(X, t, prob, resolution=0.02):
+def plot_decision_regions(X, T, prob, resolution=0.02):
+    # 1-of-K を多値表現 {0,...,K-1} に直す
+    if (T.shape[1] > 1):
+        t = np.argmax(T, axis=1)
+    else:
+        t = T.flatten()     # binary
+    
     # setup marker generator and color map
     markers = ('s', 'x', 'o', '^', 'v')
     colors = ('red', 'blue', 'lightgreen', 'gray', 'cyan')
@@ -19,17 +25,16 @@ def plot_decision_regions(X, t, prob, resolution=0.02):
     xx1, xx2 = np.meshgrid(np.arange(x1_min, x1_max, resolution),
                            np.arange(x2_min, x2_max, resolution))
     # 確率 p_k (k=0,...,K-1)
-    Z = prob(np.array([xx1.ravel(), xx2.ravel()]).T)
+    Y = prob(np.array([xx1.ravel(), xx2.ravel()]).T)
 
     # 予測クラス {0,...,K-1}
-    if (Z.shape[1] > 1):
-        Z = np.argmax(Z, axis=1)
+    if (Y.shape[1] > 1):
+        Z = np.argmax(Y, axis=1)
     else:
-        Z = (Z >= 0.5)  # binary
-        
+        Z = (Y >= 0.5)  # binary
+
     # 予測マップ
-    Z = Z.reshape(xx1.shape)
-    plt.contourf(xx1, xx2, Z, alpha=0.4, cmap=cmap)
+    plt.contourf(xx1, xx2, Z.reshape(xx1.shape), alpha=0.4, cmap=cmap)
     plt.xlim(xx1.min(), xx1.max())
     plt.ylim(xx2.min(), xx2.max())
 

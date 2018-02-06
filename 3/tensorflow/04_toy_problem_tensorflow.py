@@ -17,7 +17,6 @@ Y = y.reshape(N, 1)
 
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, train_size=0.8)
 
-
 '''
 モデル生成
 '''
@@ -85,5 +84,5 @@ def get_prob(X):
         x: X
     })
 
-plot_decision_regions(X_test, Y_test.flatten(), get_prob)
+plot_decision_regions(X_test, Y_test, get_prob)
 plt.show()

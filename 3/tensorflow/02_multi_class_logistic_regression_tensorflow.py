@@ -92,7 +92,5 @@ def get_prob(X):
         x: X
     })
 
-# 1-of-K を多値表現 {0,...,K-1} に直す
-T_ = np.argmax(Y_, axis=1)
-plot_decision_regions(X_, T_, get_prob)
+plot_decision_regions(X_, Y_, get_prob)
 plt.show()

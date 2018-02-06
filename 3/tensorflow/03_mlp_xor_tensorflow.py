@@ -74,5 +74,5 @@ def get_prob(X):
         x: X
     })
 
-plot_decision_regions(X, Y.flatten(), get_prob)
+plot_decision_regions(X, Y, get_prob)
 plt.show()
