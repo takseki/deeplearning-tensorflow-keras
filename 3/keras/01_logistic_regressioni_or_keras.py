@@ -37,3 +37,8 @@ print(Y == classes)
 print()
 print('output probability:')
 print(prob)
+
+
+# 終了時にときどき例外吐くことへの対処
+from keras import backend as K
+K.clear_session()
