@@ -122,7 +122,7 @@ if __name__ == '__main__':
     '''
     モデル学習
     '''
-    epochs = 5
+    epochs = 50
     batch_size = 200
 
     init = tf.global_variables_initializer()
