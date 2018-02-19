@@ -74,7 +74,9 @@ if __name__ == '__main__':
 
     X = mnist.data[indices]
     X = X / 255.0
+    # print(X.shape)
     X = X - X.mean(axis=1).reshape(len(X), 1)
+    # X = X - X.mean(axis=0)
     y = mnist.target[indices]
     Y = np.eye(10)[y.astype(int)]  # 1-of-K 表現に変換
 
@@ -83,6 +85,16 @@ if __name__ == '__main__':
 
     X_train, X_validation, Y_train, Y_validation = \
         train_test_split(X_train, Y_train, test_size=N_validation)
+
+    # テスト画像表示
+    fig = plt.figure()
+    fig.subplots_adjust(left=0, right=1, bottom=0, top=1, hspace=0.2, wspace=0.2)
+
+    for i in range(20):
+        ax = fig.add_subplot(4, 5, i + 1, xticks=[], yticks=[])
+        ax.imshow(X_test[i].reshape(28, 28), cmap=plt.cm.gray_r, interpolation='nearest')
+
+    plt.show()
 
     '''
     モデル設定
@@ -110,7 +122,7 @@ if __name__ == '__main__':
     '''
     モデル学習
     '''
-    epochs = 50
+    epochs = 5
     batch_size = 200
 
     init = tf.global_variables_initializer()
