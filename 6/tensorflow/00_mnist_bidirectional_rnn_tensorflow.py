@@ -176,9 +176,16 @@ if __name__ == '__main__':
     学習の進み具合を可視化
     '''
     loss = history['val_loss']
-
+    acc = history['val_acc']
+    
     plt.rc('font', family='serif')
     fig = plt.figure()
+
+    ax_acc = fig.add_subplot(111)
+    ax_acc.plot(range(len(acc)), acc, label='acc', color='gray')
+    ax_loss = ax_acc.twinx()
+    ax_loss.plot(range(len(loss)), loss, label='loss', color='black')
+    
     plt.plot(range(len(loss)), loss,
              label='loss', color='black')
     plt.xlabel('epochs')
